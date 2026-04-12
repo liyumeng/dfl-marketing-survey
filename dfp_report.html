@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+<title>Decision-Focused Learning 因果营销论文精选</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #21262d;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #6e7681;
+  --accent: #58a6ff;
+  --accent2: #79c0ff;
+  --green: #3fb950;
+  --green2: #56d364;
+  --orange: #e3b341;
+  --red: #f85149;
+  --purple: #d2a8ff;
+  --gold: #ffc107;
+  --pink: #db61a2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  padding: 0 0 60px 0;
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+/* ── Header ── */
+.header {
+  padding: 40px 0 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.header .tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #1a3a5c, #0e2240);
+  border: 1px solid #1d4e8f;
+  color: var(--accent2);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.header .subtitle {
+  color: var(--text2);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+.header .meta {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.header .meta-item {
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.header .meta-item .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── Section ── */
+.section { margin-bottom: 40px; }
+
+h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+h2 .num {
+  width: 26px; height: 26px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+h2 .title-text { font-size: 17px; }
+
+h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent2);
+  margin: 22px 0 10px;
+}
+
+/* ── Core Paper Cards ── */
+.paper-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.paper-card:hover { border-color: var(--accent); }
+.paper-card.star::before {
+  content: "⭐ 核心";
+  position: absolute;
+  top: 14px; right: 14px;
+  background: linear-gradient(135deg, #2d2006, #3d2e00);
+  border: 1px solid #7a6500;
+  color: var(--gold);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.paper-card .stars {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--purple), var(--accent));
+  border-radius: 12px 12px 0 0;
+}
+.paper-card .arxiv-badge {
+  display: inline-block;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-family: monospace;
+  margin-right: 8px;
+}
+.paper-card .title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 10px 0 6px;
+  line-height: 1.4;
+}
+.paper-card .authors {
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 4px;
+}
+.paper-card .org {
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  font-style: italic;
+}
+.paper-card .tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.tag-chip {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.tag-endtoend { background: #0d2822; color: var(--green2); border: 1px solid #1a4a35; }
+.tag-causal { background: #1a1d35; color: #a5b4fc; border: 1px solid #2d3060; }
+.tag-marketing { background: #2a1505; color: #f0a060; border: 1px solid #5a3510; }
+.tag-dfl { background: #1a0d2e; color: var(--purple); border: 1px solid #3d2060; }
+.tag-rl { background: #0d2020; color: #60c0c0; border: 1px solid #1a4040; }
+.tag-roi { background: #2a1d00; color: var(--orange); border: 1px solid #5a3d00; }
+
+.paper-card .abstract {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.8;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+.paper-card .challenges {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--surface2);
+  border-radius: 8px;
+  border-left: 3px solid var(--orange);
+}
+.paper-card .challenges-title {
+  font-size: 11px;
+  color: var(--orange);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.paper-card .challenges li {
+  font-size: 12px;
+  color: var(--text2);
+  margin-left: 14px;
+  margin-bottom: 3px;
+}
+
+.paper-card .methods {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--surface2);
+  border-radius: 8px;
+  border-left: 3px solid var(--green);
+}
+.paper-card .methods-title {
+  font-size: 11px;
+  color: var(--green);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.paper-card .methods li {
+  font-size: 12px;
+  color: var(--text2);
+  margin-left: 14px;
+  margin-bottom: 3px;
+}
+
+.paper-card .result {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--green);
+  background: #0d2822;
+  border: 1px solid #1a4a35;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+/* ── Comparison Table ── */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.comp-table th {
+  background: var(--surface2);
+  color: var(--text2);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+.comp-table td {
+  padding: 10px 12px;
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: var(--surface2); }
+.comp-table .paper-name { color: var(--accent2); font-weight: 500; }
+.comp-table .arxiv-link { color: var(--accent); font-family: monospace; font-size: 11px; }
+
+/* ── Roadmap ── */
+.roadmap { margin-bottom: 10px; }
+.roadmap-item {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+.roadmap-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 6px;
+  flex-shrink: 0;
+  position: relative;
+}
+.roadmap-dot::after {
+  content: '';
+  position: absolute;
+  top: 10px; left: 4px;
+  width: 2px;
+  height: calc(100% + 14px);
+  background: var(--border);
+}
+.roadmap-item:last-child .roadmap-dot::after { display: none; }
+.roadmap-content { flex: 1; }
+.roadmap-year {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.roadmap-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.roadmap-desc { font-size: 12px; color: var(--text2); }
+.roadmap-arxiv {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: monospace;
+  margin-top: 3px;
+}
+
+/* ── Mini Cards ── */
+.mini-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 540px) { .mini-cards { grid-template-columns: 1fr; } }
+.mini-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.mini-card:hover { border-color: var(--accent); }
+.mini-card .arxiv {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: monospace;
+  margin-bottom: 4px;
+}
+.mini-card .mini-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+.mini-card .mini-org {
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+.mini-card .mini-contrib {
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* ── Insight Box ── */
+.insight-box {
+  background: linear-gradient(135deg, #0d1f35, #0a1628);
+  border: 1px solid #1d3a6e;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+.insight-box .insight-title {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.insight-box li {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 8px;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.7;
+}
+.insight-box li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.insight-box li strong { color: var(--accent2); }
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  color: var(--text3);
+  font-size: 11px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 32px 0;
+}
+
+/* ── Reading Path ── */
+.reading-path {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+.reading-path ol {
+  padding-left: 20px;
+}
+.reading-path li {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 8px;
+  padding-left: 6px;
+}
+.reading-path li strong { color: var(--accent2); }
+.reading-path li em { color: var(--text3); font-size: 11px; }
+
+/* ── Back to Top ── */
+.back-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px; height: 40px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  z-index: 100;
+}
+.back-top:hover { background: var(--accent2); color: #000; }
+
+/* ── Responsive ── */
+@media (max-width: 540px) {
+  h2 .title-text { font-size: 15px; }
+  .paper-card { padding: 16px 16px; }
+  .paper-card .title { font-size: 14px; }
+  .header h1 { font-size: 21px; }
+  .comp-table { font-size: 11px; }
+  .comp-table th, .comp-table td { padding: 8px 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<div class="header" id="top">
+  <div class="tag">Research Survey · 2024–2025</div>
+  <h1>Decision-Focused Learning<br>因果营销论文精选</h1>
+  <p class="subtitle">筛选范围：DFL + 因果推断 + 营销端到端决策优化</p>
+  <div class="meta">
+    <div class="meta-item"><span class="dot"></span>arXiv 2024–2026</div>
+    <div class="meta-item"><span class="dot"></span>已核验论文 4 篇</div>
+    <div class="meta-item"><span class="dot"></span>更新时间：2026-04-13</div>
+    <div class="meta-item"><span class="dot"></span>知乎来源：苏漓、贝子涵</div>
+  </div>
+</div>
+
+<!-- ═══════════════ SECTION 1: 核心论文 ═══════════════ -->
+<div class="section">
+  <h2><span class="num">1</span><span class="title-text">核心论文（必读）</span></h2>
+
+  <!-- DFCL -->
+  <div class="paper-card star" id="dfcl">
+    <div class="stars"></div>
+    <div style="margin-top:4px">
+      <span class="arxiv-badge">2407.13664</span>
+      <span class="arxiv-badge" style="background:#1a2a0d;border-color:#2d5016;color:var(--green)">已部署 · 美团</span>
+    </div>
+    <div class="title">Decision Focused Causal Learning for Direct Counterfactual Marketing Optimization</div>
+    <div class="authors">Hao Zhou, Rongxiao Huang, Shaoming Li, Guibin Jiang, Jiaqi Zheng, Bing Cheng, Wei Lin</div>
+    <div class="org">美团（Meituan）· 2024-07</div>
+    <div class="tags">
+      <span class="tag-chip tag-dfl">DFL</span>
+      <span class="tag-chip tag-causal">因果推断</span>
+      <span class="tag-chip tag-marketing">营销优化</span>
+      <span class="tag-chip tag-endtoend">端到端</span>
+    </div>
+    <div class="abstract">
+      <strong>一句话总结：</strong>将因果推断（ITE估计）和运筹优化（整数随机规划）端到端结合，优惠券分配直接反事实优化，已在美团多场景上线A/B测试有效。<br><br>
+      <strong>问题建模：</strong>用户特征x → 是否发优惠券 → 最大GMV（受预算B约束）<br>
+      挑战：①0-1整数随机规划（券面额∈{10,20,50,100}）；②反事实损失不可得；③OR求解器调用成本极高
+    </div>
+    <div class="challenges">
+      <div class="challenges-title">三大技术挑战 & 解决方案</div>
+      <ul>
+        <li><strong>整数随机规划：</strong>将预算不确定性建模为随机变量</li>
+        <li><strong>反事实损失不可得：</strong>通过因果推断估计ITE，用ITE代理反事实损失</li>
+        <li><strong>求解器成本高：</strong>采样梯度估计 + 历史数据缓存策略</li>
+      </ul>
+    </div>
+    <div class="methods">
+      <div class="methods-title">核心方法</div>
+      <ul>
+        <li>因果估计模块：估计每个用户对每种券的ITE（uplift = E[GMV|do(send)] − E[GMV|do(not)]）</li>
+        <li>DFL决策模块：基于ITE预测做组合优化（top-K用户 × 券面额）</li>
+        <li>端到端训练：DFL regret指导ITE预测损失更新</li>
+      </ul>
+    </div>
+    <div class="result">✓ 美团外卖/到店多场景 A/B 测试，GMV 提升显著</div>
+  </div>
+
+  <!-- HCL -->
+  <div class="paper-card star" id="hcl">
+    <div class="stars"></div>
+    <div style="margin-top:4px">
+      <span class="arxiv-badge">2507.05510</span>
+      <span class="arxiv-badge" style="background:#1a2a0d;border-color:#2d5016;color:var(--green)">已部署 · Lightspeed</span>
+    </div>
+    <div class="title">Heterogeneous Causal Learning for Optimizing Aggregated Functions in User Growth</div>
+    <div class="authors">Shuyang Du, Jennifer Zhang, Will Y. Zou</div>
+    <div class="org">Lightspeed × 多伦多大学 × Angle.ac · 2025-07</div>
+    <div class="tags">
+      <span class="tag-chip tag-dfl">DFL</span>
+      <span class="tag-chip tag-causal">因果推断</span>
+      <span class="tag-chip tag-marketing">用户增长</span>
+      <span class="tag-chip tag-roi">ROI优化</span>
+    </div>
+    <div class="abstract">
+      <strong>一句话总结：</strong>跳过uplift显式建模，用Softmax门控直接端到端优化ROI（增量收益/增量成本），配合Barrier Function + Annealing处理硬约束，已全球部署。<br><br>
+      <strong>核心洞察：</strong>传统两阶段方法（先预测uplift再排序）的问题——训练目标 ≠ 业务目标。DRM直接以整体ROI为loss，通过softmax(p_i)构造可微群体级优化。
+    </div>
+    <div class="challenges">
+      <div class="challenges-title">DRM 核心公式</div>
+      <ul>
+        <li>优化目标：max_θ τ_r*(θ,X) / τ_c*(θ,X)（整体ROI，而非个体uplift）</li>
+        <li>p_i = softmax(f(x_i|θ)) → 可微的概率权重，归一化用户相对重要性</li>
+        <li>分子 = ΣY_rⁱ · p_i · (I_{T=1} − I_{T=0}) → 加权增量收益</li>
+        <li>分母 = ΣY_cⁱ · p_i · (I_{T=1} − I_{T=0}) → 加权增量成本</li>
+      </ul>
+    </div>
+    <div class="methods">
+      <div class="methods-title">CRM：Barrier Function + Annealing 约束处理</div>
+      <ul>
+        <li>σ_i = sigmoid(T · (f(x_i) − d*)) → Sigmoid型Barrier动态"屏蔽"低效用户</li>
+        <li>Annealing：T从小→大（软约束探索→硬约束聚焦），避免梯度断裂</li>
+        <li>支持比例约束（Top-40%用户）和预算约束（总成本≤$B）</li>
+        <li>Propensity weighting扩展：处理非随机实验数据的selection bias</li>
+      </ul>
+    </div>
+    <div class="result">✓ 线上ROI相比Causal Forest提升超20%，已全球部署于HCLW生产系统</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ SECTION 2: 后续工作 ═══════════════ -->
+<div class="section">
+  <h2><span class="num">2</span><span class="title-text">后续发展</span></h2>
+
+  <div class="mini-cards">
+    <!-- Bi-DFCL -->
+    <div class="mini-card" id="bi-dfcl">
+      <div class="arxiv">2510.19517</div>
+      <div class="mini-title">Bi-DFCL：双层决策聚焦因果学习</div>
+      <div class="mini-org">美团 · 2025-10</div>
+      <div class="mini-contrib">
+        在DFCL基础上解决「偏差-方差困境」：<br>
+        观测数据有偏但样本多；实验数据无偏但样本少。<br><br>
+        提出双层优化框架，统一观测+实验数据，通过隐函数微分（implicit differentiation）联合求解，已在美团上线。
+      </div>
+    </div>
+
+    <!-- FCA-RL -->
+    <div class="mini-card" id="fca-rl">
+      <div class="arxiv">2507.02244</div>
+      <div class="mini-title">FCA-RL：快速自适应强化学习补贴策略</div>
+      <div class="mini-org">滴滴出行 · PKDD'25 · 2025-07</div>
+      <div class="mini-contrib">
+        网约车聚合平台（RHA）竞争补贴场景。<br>
+        FCA（贝叶斯后验快速跟踪IRR）+ RLA（Actor-Critic调整拉格朗日乘子λ）。<br><br>
+        核心创新：将订单完成率分解为 IRR × In-Range/Out-Range完成率，建模竞争对手价格敏感的动态因果关系。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SECTION 3: 方法论对比 ═══════════════ -->
+<div class="section">
+  <h2><span class="num">3</span><span class="title-text">方法论对比</span></h2>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>论文</th>
+        <th>优化目标</th>
+        <th>方法类别</th>
+        <th>约束处理</th>
+        <th>端到端</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="paper-name">DFCL</span><br><span class="arxiv-link">2407.13664</span></td>
+        <td>反事实 GMV 最大化</td>
+        <td>因果推断 + 整数规划</td>
+        <td>随机规划（预算不确定）</td>
+        <td style="color:var(--green)">✓ 是</td>
+      </tr>
+      <tr>
+        <td><span class="paper-name">HCL-DRM</span><br><span class="arxiv-link">2507.05510</span></td>
+        <td>ROI（收益/成本）</td>
+        <td>Softmax门控 + 可微优化</td>
+        <td>Barrier + Annealing</td>
+        <td style="color:var(--green)">✓ 是</td>
+      </tr>
+      <tr>
+        <td><span class="paper-name">HCL-CRM</span><br><span class="arxiv-link">2507.05510</span></td>
+        <td>约束下 ROI 最大化</td>
+        <td>Softmax门控 + 硬约束软化</td>
+        <td>Sigmoid Barrier（比例/预算）</td>
+        <td style="color:var(--green)">✓ 是</td>
+      </tr>
+      <tr>
+        <td><span class="paper-name">Bi-DFCL</span><br><span class="arxiv-link">2510.19517</span></td>
+        <td>偏差-方差权衡决策质量</td>
+        <td>双层优化 + 隐函数微分</td>
+        <td>实验数据无偏估计引导</td>
+        <td style="color:var(--green)">✓ 是</td>
+      </tr>
+      <tr>
+        <td><span class="paper-name">FCA-RL</span><br><span class="arxiv-link">2507.02244</span></td>
+        <td>订单完成 + 预算率控制</td>
+        <td>RL（MDP）+ 贝叶斯竞争适应</td>
+        <td>Full-Achievement函数</td>
+        <td style="color:var(--orange)">△ RL范式</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════ SECTION 4: 关键洞察 ═══════════════ -->
+<div class="section">
+  <h2><span class="num">4</span><span class="title-text">关键洞察</span></h2>
+
+  <div class="insight-box">
+    <div class="insight-title">核心发现</div>
+    <ul>
+      <li><strong>DFCL vs HCL 的本质区别：</strong>DFCL是两阶段（先因果建模ITE → 再OR求解），HCL是真正单阶段端到端（Softmax群体级优化直接可微）</li>
+      <li><strong>HCL的核心洞察：</strong>不追求每个用户的uplift预测准确，而是学准「哪个群体组合整体ROI最大」的打分函数f(x)</li>
+      <li><strong>反事实不可得的通用解法：</strong>用ITE（个体治疗效果）代理反事实损失，这是所有因果DFL方法的共同基础</li>
+      <li><strong>约束处理的两种范式：</strong>① DFCL的随机规划（处理预算不确定性）；② HCL的Barrier+Annealing（处理比例/预算硬约束）</li>
+      <li><strong>端到端 vs 两阶段的核心矛盾：</strong>两阶段方法训练目标（预测MSE）≠ 业务目标（决策ROI），这是端到端DFL兴起的根本原因</li>
+      <li><strong>工业落地共性：</strong>三篇论文均已线上部署，说明因果DFL在营销场景已从学术研究进入工业实践阶段</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════ SECTION 5: 时间线 ═══════════════ -->
+<div class="section">
+  <h2><span class="num">5</span><span class="title-text">发展时间线</span></h2>
+
+  <div class="roadmap">
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-content">
+        <div class="roadmap-year">2024-07</div>
+        <div class="roadmap-title">DFCL（美团）</div>
+        <div class="roadmap-desc">首个因果DFL+营销端到端部署案例，0-1整数随机规划+反事实不可得的工业级解法</div>
+        <div class="roadmap-arxiv">2407.13664 · 美团</div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-content">
+        <div class="roadmap-year">2025-07</div>
+        <div class="roadmap-title">HCL（Lightspeed）+ FCA-RL（滴滴）</div>
+        <div class="roadmap-desc">两条并行路线：HCL用Softmax门控实现真正端到端ROI优化；FCA-RL用RL+贝叶斯处理竞争动态</div>
+        <div class="roadmap-arxiv">2507.05510 · 2507.02244</div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot"></div>
+      <div class="roadmap-content">
+        <div class="roadmap-year">2025-10</div>
+        <div class="roadmap-title">Bi-DFCL（美团）</div>
+        <div class="roadmap-desc">双层优化统一观测+实验数据，解决偏差-方差困境，从两阶段走向真正的联合优化</div>
+        <div class="roadmap-arxiv">2510.19517 · 美团</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SECTION 6: 推荐阅读路径 ═══════════════ -->
+<div class="section">
+  <h2><span class="num">6</span><span class="title-text">推荐阅读路径</span></h2>
+
+  <div class="reading-path">
+    <ol>
+      <li><strong>入门必读：DFCL（2407.13664）</strong> <em>—— 工业级因果DFL最完整案例，理解三大挑战+解法</em></li>
+      <li><strong>进阶理解：HCL DRM（2507.05510）</strong> <em>—— 真正端到端Softmax门控，与DFCL的路线对比</em></li>
+      <li><strong>方法深化：HCL CRM部分</strong> <em>—— Barrier Function + Annealing约束处理，可推广到多种业务约束</em></li>
+      <li><strong>数据融合：Bi-DFCL（2510.19517）</strong> <em>—— 观测+实验数据联合建模，处理偏差-方差 tradeoff</em></li>
+      <li><strong>扩展视野：FCA-RL（2507.02244）</strong> <em>—— 竞争动态场景的RL解法，IRR分解思路有参考价值</em></li>
+    </ol>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="footer">
+  <p>数据来源：arXiv + 知乎专栏（苏漓 · 贝子涵）</p>
+  <p>整理时间：2026-04-13 · 仅供学术参考</p>
+</div>
+
+</div>
+
+<a class="back-top" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑</a>
+
+</body>
+</html>
